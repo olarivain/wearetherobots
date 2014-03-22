@@ -5,6 +5,15 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "export BUILD_USER=olarivain&#10;if [ `whoami` = &apos;_teamsserver&apos; ]; then&#10;echo &quot;running pod install as part of CI build&quot;&#10;chmod 777 /Library/Server/Xcode/Data&#10;&#10;# move to the project and clean the pods leftover&#10;cd ${SRCROOT}&#10;rm ./Podfile.lock&#10;&#10;# chown the current folder to a user that can ran a pod update&#10;sudo chown -R $BUILD_USER .&#10;sudo -H -u $BUILD_USER pod install&#10;# and flip it back to the original owner&#10;sudo chown -R _teamsserver .&#10;&#10;fi">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
