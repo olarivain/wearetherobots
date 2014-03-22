@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0510"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -10,7 +10,16 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "export BUILD_USER=olarivain&#10;if [ `whoami` = &apos;_teamsserver&apos; ]; then&#10;echo &quot;running pod install as part of CI build&quot;&#10;chmod 777 /Library/Server/Xcode/Data&#10;&#10;# move to the project and clean the pods leftover&#10;pwd&#10;rm ./Podfile.lock&#10;&#10;# chown the current folder to a user that can ran a pod update&#10;sudo chown -R $BUILD_USER .&#10;sudo -H -u $BUILD_USER pod install&#10;# and flip it back to the original owner&#10;sudo chown -R _teamsserver .&#10;&#10;fi">
+               scriptText = "export BUILD_USER=olarivain&#10;if [ `whoami` = &apos;_teamsserver&apos; ]; then&#10;echo &quot;running pod install as part of CI build&quot;&#10;chmod 777 /Library/Server/Xcode/Data&#10;&#10;# move to the project and clean the pods leftover&#10;cd &quot;${SRCROOT}&quot;&#10;rm ./Podfile.lock&#10;&#10;# chown the current folder to a user that can ran a pod update&#10;sudo chown -R $BUILD_USER .&#10;sudo -H -u $BUILD_USER pod install&#10;# and flip it back to the original owner&#10;sudo chown -R _teamsserver .&#10;&#10;fi">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "001B738D18DE254400302B92"
+                     BuildableName = "Test.app"
+                     BlueprintName = "Test"
+                     ReferencedContainer = "container:Test.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
             </ActionContent>
          </ExecutionAction>
       </PreActions>
